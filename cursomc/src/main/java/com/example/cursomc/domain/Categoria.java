@@ -19,7 +19,7 @@ public class Categoria implements Serializable {
     private Integer id;
     private String nome;
 
-    // Trata a referencia siclica quando o sistema vai serializar o json...
+    // Trata a referência siclica quando o sistema vai serializar o json...
     // No lado que vc quer que venha os objetos associados
     @JsonManagedReference
     @ManyToMany(mappedBy="categorias")
