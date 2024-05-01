@@ -20,7 +20,7 @@ public class Produto implements Serializable {
     private Double preco;
 
     // Não faz a busca dos objetos associados
-    @JsonBackReference
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name="PRODUTO_CATEGORIA",

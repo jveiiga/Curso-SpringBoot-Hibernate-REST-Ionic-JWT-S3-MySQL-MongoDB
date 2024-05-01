@@ -23,7 +23,7 @@ public class Categoria implements Serializable {
 
     // Trata a referência siclica quando o sistema vai serializar o json...
     // No lado que vc quer que venha os objetos associados
-    @JsonManagedReference
+
     @ManyToMany(mappedBy="categorias")
     private List<Produto> produtos = new ArrayList<>();
 
