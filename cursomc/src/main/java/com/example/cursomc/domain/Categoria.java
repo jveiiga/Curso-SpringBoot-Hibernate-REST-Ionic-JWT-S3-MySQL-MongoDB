@@ -16,14 +16,11 @@ import jakarta.persistence.ManyToMany;
 public class Categoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-
-    // Trata a referência siclica quando o sistema vai serializar o json...
-    // No lado que vc quer que venha os objetos associados
 
     @ManyToMany(mappedBy="categorias")
     private List<Produto> produtos = new ArrayList<>();
