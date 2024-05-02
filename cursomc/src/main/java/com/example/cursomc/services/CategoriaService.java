@@ -4,8 +4,13 @@ import com.example.cursomc.domain.Categoria;
 import com.example.cursomc.repositories.CategoriaRepository;
 import com.example.cursomc.services.exceptions.DataIntegrityException;
 import com.example.cursomc.services.exceptions.ObjectNotFoundExpection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.ScrollPosition.Direction;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,8 +60,17 @@ public class CategoriaService {
         }
     }
 
+    //Lista todas as categorias
     public List<Categoria> findall() {
 
         return categoriaRepository.findAll();
     }
+
+    public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+        
+
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.by(Sort.Direction.fromString(direction), orderBy));
+
+        return categoriaRepository.findAll(pageRequest);
+    } 
 }
