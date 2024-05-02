@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 // Camada de serviço de acesse aos dados
@@ -52,5 +53,10 @@ public class CategoriaService {
 
             throw new  DataIntegrityException("Não é possível excluir uma categoria que possuí produtos!");
         }
+    }
+
+    public List<Categoria> findall() {
+
+        return categoriaRepository.findAll();
     }
 }
