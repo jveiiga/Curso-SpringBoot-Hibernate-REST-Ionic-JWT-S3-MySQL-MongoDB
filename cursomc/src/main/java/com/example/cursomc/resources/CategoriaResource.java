@@ -3,6 +3,9 @@ package com.example.cursomc.resources;
 import com.example.cursomc.domain.Categoria;
 import com.example.cursomc.dto.CategoriaDTO;
 import com.example.cursomc.services.CategoriaService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +40,9 @@ public class CategoriaResource {
 
     //POST
     @RequestMapping(method=RequestMethod.POST)
-    public ResponseEntity<Categoria> insert(@RequestBody Categoria obj) {
+    public ResponseEntity<Categoria> insert(@Valid @RequestBody CategoriaDTO objDto) {
 
+        Categoria obj = categoriaService.fromDTO(objDto);
         obj = categoriaService.insert(obj);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -51,8 +55,8 @@ public class CategoriaResource {
 
     //PUT
     @RequestMapping(value="/{id}", method=RequestMethod.PUT)
-    public ResponseEntity<Categoria> update(@RequestBody Categoria obj, @PathVariable Integer id) {
-        
+    public ResponseEntity<Categoria> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
+        Categoria obj = categoriaService.fromDTO(objDto);
         obj.setId(id);
         obj = categoriaService.update(obj);
 
@@ -78,6 +82,7 @@ public class CategoriaResource {
         return ResponseEntity.ok().body(listDto);
     }
 
+    // GET (LISTPAGE)
     @RequestMapping(value="/page", method=RequestMethod.GET)
     public ResponseEntity<Page<CategoriaDTO>> findPage(
         @RequestParam(value="page", defaultValue="0") Integer page,
