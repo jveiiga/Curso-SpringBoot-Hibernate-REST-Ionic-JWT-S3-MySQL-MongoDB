@@ -44,8 +44,11 @@ public class CategoriaService {
 
     //Edita uma categoria
     public Categoria update(Categoria obj) {
-        find(obj.getId());
-        return categoriaRepository.save(obj);
+
+        Categoria newObj = find(obj.getId());
+        updateData(newObj, obj);
+
+        return categoriaRepository.save(newObj);
     }
 
     //Deleta uma categoria
@@ -75,8 +78,14 @@ public class CategoriaService {
         return categoriaRepository.findAll(pageRequest);
     } 
 
+    // Estancia o objeto a partir do DTO
     public Categoria fromDTO(CategoriaDTO objDto) {
 
         return new Categoria(objDto.getId(), objDto.getNome());
+    }
+
+    // Atualiza os atributos permitidos
+    private void updateData(Categoria newObj, Categoria obj) {
+        newObj.setNome(obj.getNome()); 
     }
 }

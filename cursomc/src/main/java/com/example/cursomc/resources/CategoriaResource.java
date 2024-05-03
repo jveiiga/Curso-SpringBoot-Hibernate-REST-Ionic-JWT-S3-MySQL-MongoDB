@@ -40,8 +40,7 @@ public class CategoriaResource {
 
     //POST
     @RequestMapping(method=RequestMethod.POST)
-    public ResponseEntity<Categoria> insert(@Valid 
-    @RequestBody CategoriaDTO objDto) {
+    public ResponseEntity<Categoria> insert(@Valid @RequestBody CategoriaDTO objDto) {
 
         Categoria obj = categoriaService.fromDTO(objDto);
         obj = categoriaService.insert(obj);
